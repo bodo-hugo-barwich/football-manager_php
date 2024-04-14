@@ -4,7 +4,6 @@
 .buildpath
 
 # Exclude downloaded scripts
-bin/console
 bin/phpunit
 
 # Exclude Local Configurations
