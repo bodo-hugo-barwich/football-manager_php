@@ -42,3 +42,13 @@ The site uses the libraries `Symfony`, `Twig` and `Twig Templates`.
 	the project directory:
 
 			APP_ENV=test symfony server:start
+
+- tests
+
+	The automatted tests can be run with the `bin/phpunit` script.
+	To execute the automatted tests run the `bin/phpunit` script in the project directory:
+
+			php bin/phpunit
+
+	It is recommended to restore the test database before each test run with the `doctrine:fixtures:load` command as
+	described under _database_ above.
