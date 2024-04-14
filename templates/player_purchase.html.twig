@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Player - {{ player.surname }}, {{ player.name }} - Purchase{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/player.css" />
+{% endblock %}
+{% block body %}
+  <!-- this is the start of content -->
+  <h1>
+    Player ({{ player.id }}) - {{ player.surname }}, {{ player.name }} -<br />
+    Purchase
+  </h1>
+  <div>
+    {% include 'includes/menu.html.twig' %}
+
+    <h2>Player Purchase</h2>
+    <p>Display the Player Details and his current Team Details</p>
+    <p>
+      This will change the Player from one Team to another and also adjust the
+      Teams <span class="code">money_balance</span>
+    </p>
+    <p>
+    	The Purchasing Team must have sufficient Balance to be able to conclude the purchase.
+    </p>
+    <p>
+      Please, select the Purchasing Team from the
+      <span class="code">Select a Team</span> dropdown. Then enter the purchase
+      price into the <span class="code">Price</span> field.
+    </p>
+    <h3>{{ player.getID }} - {{ player.getSurname }}, {{ player.getName }}</h3>
+    <div>
+      - ID: {{ player.getID }}<br />
+      - Name: {{ player.getName }}<br />
+      - Surname: {{ player.getSurname }}
+    </div>
+    <h3>Team ({{ team.getID }}) - {{ team.getName }}</h3>
+    <div>
+      Player '{{ player.getSurname }}, {{ player.getName }}' currently plays in
+      Team ({{ team.getID }}) '{{ team.getName }}'.
+    </div>
+    <div>
+      - ID: {{ team.getID }}<br />
+      - Country: {{ team.getCountry }}<br />
+      - Balance: {{ team.getMoneyBalance }}
+    </div>
+    <div
+      v-scope="{
+      			player: {id: {{ player.getID }}, name: '{{ player.getName }}', surname: '{{ player.getSurname }}', team_id: {{ player.getTeamId }} },
+      			listTeamsURL: '{{ path('api_teams_list') }}',
+      			editPlayerURL: '{{ path('api_players_purchase', {id: player.getID}) }}'
+      			}"
+      @mounted="mounted(player, listTeamsURL, editPlayerURL)"
+      class="purchase-player-form"
+    >
+      <h3>Purchasing Team</h3>
+      {% verbatim %}
+        <div v-effect="$el.textContent = vars.listTeamsMessage ">
+          {{ vars.listTeamsMessage }}
+        </div>
+        <select
+          class="teams-select"
+          v-model="vars.selectedTeamId"
+          @change="selectTeam()"
+        >
+          <option value="-1">Select a Team</option>
+          <option v-for="team in teams" :value="team.id" :key="team.id">
+            {{ team.name }}
+          </option>
+        </select>
+        <form id="purchase-player" @submit.prevent="">
+          <div
+          	v-for="field in purchasePlayer.fields"
+          	v-effect="$el.id = 'purchase-player-' + field.name"
+          >
+            <label>{{ field.label }}:</label>
+            <input
+            	type="text"
+            	v-model="field.value"
+	          	v-effect="$el.name = field.name"
+           	/>
+          </div>
+          <div class="button-position">
+            <button class="submit-button" @click="checkoutPlayer()">
+              Checkout
+            </button>
+          </div>
+        </form>
+        <div class="message">{{ purchasePlayer.message }}</div>
+      {% endverbatim %}
+    </div>
+  </div>
+{% endblock %}
+{% block bodyscripts %}
+  {{ parent() }}
+  <!-- import the webpage's javascript file -->
+  <script type="module" src="/js/player_purchase.js" defer></script>
+{% endblock %}

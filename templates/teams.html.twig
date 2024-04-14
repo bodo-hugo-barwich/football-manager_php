@@ -1,0 +1,106 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  Teams List - Display Teams
+  {%- if current_page is defined and current_page > 1 -%}
+    - Page {{ current_page }}
+  {%- endif -%}
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/teams.css" />
+{% endblock %}
+{% block body %}
+  <!-- this is the start of content -->
+  <h1>Teams List - Display Teams</h1>
+  <div>
+    {% include 'includes/menu.html.twig' %}
+
+    <h2>
+      Teams List
+      {%- if current_page is defined and current_page > 1 -%}
+        - Page {{ current_page }}
+      {% endif %}
+    </h2>
+    <p>Display Teams and their Players with the API through AJAX</p>
+    <p>Below each Team the Players from the selected Team are displayed</p>
+    <p>
+      Please, click the
+      <span class="code">show players</span> link to fetch the player list for
+      each team.
+    </p>
+    <ul>
+      <li><a href="{{ path('teams_index') }}">teams index</a></li>
+      {%- if page_count > 1 -%}
+        {%- for page in 2..page_count -%}
+          <li>
+            <a href="{{ path('teams_list', {page: page}) }}">page {{ page }}</a>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+    {% for team in teams %}
+      <div
+        id="team-{{ team.getID }}"
+        v-scope="{
+	  		teamId: {{ team.getID }},
+	  		listPlayersURL: '{{ path('api_players_list') }}',
+	  		purchaseURL: '{{ path('player_purchase', {id: ':id:'}) }}'
+	  		}"
+        @mounted="mounted(teamId, listPlayersURL, purchaseURL)"
+      >
+        <h3>{{ team.getName }}</h3>
+        <div>
+          - ID: {{ team.getID }}<br />
+          - Country: {{ team.getCountry }}<br />
+          - Balance: {{ team.getMoneyBalance }}
+        </div>
+        <div v-if="teamId in teams && teams[teamId].updated == 'loaded'">
+          <a href="#team-{{ team.getID }}" v-on:click="fetchPlayers(teamId)">
+            refresh players
+          </a>
+        </div>
+        <div v-else>
+          <a href="#team-{{ team.getID }}" v-on:click="fetchPlayers(teamId)">
+            show players
+          </a>
+        </div>
+        <div id="player-list-{{ team.getID }}" class="player-list">
+          {%- verbatim -%}
+            <div v-if="teamId in teams">
+              <div v-effect="$el.id = 'team-' + teamId + '-message'">
+                {{ teams[teamId].fetchResult }}
+              </div>
+              <div
+                v-if="teams[teamId].players.length > 0"
+                v-effect="$el.id = 'team-' + teamId + '-players'"
+              >
+                <div v-for="player in teams[teamId].players" :key="player.id">
+                  <div>
+                    <h4>{{ player.id }} - {{ player.surname }}</h4>
+                    <p>{{ player.surname }}, {{ player.name }}</p>
+                  </div>
+                  <div class="button-position">
+                    <a
+                      href="{{ player.purchaseURL }}"
+                      v-effect="$el.href = player.purchaseURL"
+                      class="button"
+                    >
+                      purchase
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>{{ vars.fetchResult }}</div>
+          {%- endverbatim -%}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+{% block bodyscripts %}
+  {{ parent() }}
+  <!-- import the webpage's javascript file -->
+  <script type="module" src="/js/teams_list.js" defer></script>
+{% endblock %}

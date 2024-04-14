@@ -1,0 +1,68 @@
+index:
+    path: /
+    controller: App\Controller\TeamsController::home
+
+teams_index:
+    path: 		/teams
+    controller: App\Controller\TeamsController::index
+
+teams_list:
+    path: 		/teams/{page}
+    controller: App\Controller\TeamsController::page
+
+player_purchase:
+    path: 		/player/{id}/purchase
+    controller: App\Controller\PlayersController::purchase
+
+admin_teams:
+    path:       /admin/teams
+    controller: App\Controller\Admin\TeamsController::index
+    methods:    GET
+
+admin_teams_list:
+    path:       /admin/teams/{page}
+    controller: App\Controller\Admin\TeamsController::page
+    methods:    GET
+
+api_team_add:
+    path:       /api/team
+    controller: App\Controller\API\TeamsController::add
+    methods:    POST
+
+api_team_display:
+    path: 		/api/team/{id}
+    controller: App\Controller\API\TeamsController::display
+    methods:    GET
+
+api_team_edit:
+    path: 		/api/team/{id}
+    controller: App\Controller\API\TeamsController::edit
+    methods:    POST|PUT
+
+api_teams_list:
+    path: 		/api/teams
+    controller: App\Controller\API\TeamsController::list
+
+api_players_add:
+    path:       /api/players
+    controller: App\Controller\API\PlayersController::add
+    methods:    POST
+
+api_players_display:
+    path: 		/api/players/{id}
+    controller: App\Controller\API\PlayersController::display
+    methods:    GET
+
+api_players_edit:
+    path:       /api/players/{id}
+    controller: App\Controller\API\PlayersController::edit
+    methods:    POST|PUT
+
+api_players_purchase:
+    path:       /api/players/{id}/purchase
+    controller: App\Controller\API\PlayersController::purchase
+    methods:    POST
+
+api_players_list:
+    path: 		/api/players
+    controller: App\Controller\API\PlayersController::list

@@ -1,0 +1,143 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  Admin Teams - Edit Teams
+  {%- if current_page is defined and current_page > 1 -%}
+    - Page {{ current_page }}
+  {%- endif -%}
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/admin/teams.css" />
+{% endblock %}
+{% block body %}
+  <!-- this is the start of content -->
+  <h1>Admin Teams - Edit Teams</h1>
+  <div id="teams-admin-app">
+    {% include 'includes/menu.html.twig' %}
+
+    <h2>
+      Admin Teams
+      {%- if current_page is defined and current_page > 1 -%}
+        - Page {{ current_page }}
+      {%- endif -%}
+    </h2>
+    <p>Edit Teams and their Players with the API through AJAX</p>
+    <p>
+      Please, use the <span class="code">Add Team</span> button to create a new
+      team.
+    </p>
+    <p>
+    	On the <span class="code">Add Team</span> form the fields are as follows:<br />
+     	- <span class="code">Name</span> - A freely chosen name for the Team.<br />
+     	- <span class="code">Country Code</span> - A freely chosen country code in <span class="code">ISO 3166-1 alpha-2</span>
+     	(2 letters) format for the Team.<br />
+     	- <span class="code">Money Balance</span> - A freely chosen floating point number representing the
+     	<span class="code">money_balance</span> for the Team to adquire Players.<br />
+    </p>
+    <p>
+      Please, use the <span class="code">add player</span> link to create a new
+      player for the team on the left of it.
+    </p>
+    <div
+      v-scope="{ teamId: -1, show: false }"
+      @mounted="mounted(teamId, 'addTeam', show)"
+    >
+      <div class="open-form-button">
+        <button @click="toggleAddTeamForm">Add Team</button>
+      </div>
+      <div v-if="addTeam.fields" v-show="addTeam.show" class="add-team-form">
+        <h3>Create a new Team</h3>
+        {% verbatim %}
+          <form id="add-team" @submit.prevent="">
+            <div
+              v-for="field in addTeam.fields"
+              v-effect="$el.id = 'add-team-' + field.name"
+            >
+              <label>{{ field.label }}:</label>
+              <input
+                type="text"
+                v-effect="$el.name = field.name"
+                v-model="field.value"
+              />
+            </div>
+            <div class="button-position">
+              <button class="submit-button" @click="submitTeam">
+                Create Team
+              </button>
+            </div>
+          </form>
+          <div class="message">{{ addTeam.message }}</div>
+        {% endverbatim %}
+      </div>
+      <h3>Teams List</h3>
+      <ul>
+        <li><a href="{{ path('admin_teams') }}">admin teams index</a></li>
+        {% if page_count > 1 %}
+          {% for page in 2..page_count %}
+            <li>
+              <a href="{{ path('admin_teams_list', {page: page}) }}"
+                >page {{ page }}</a
+              >
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      {% for team in teams %}
+        <div
+          id="team-{{ team.getID }}"
+          v-scope="{ teamId: {{ team.getID }} }"
+          @mounted="mounted(teamId)"
+        >
+          <div>
+            Team ({{ team.getID }}) '{{ team.getName }}':
+            <!--
+            <a href="#team-{{ team.getID }}">edit</a> |
+             -->
+            <a
+              href="#team-{{ team.getID }}"
+              @click="toggleAddPlayerForm(teamId)"
+              >add player</a
+            >
+          </div>
+          <div
+            v-if="vars.selectedTeamId == teamId && addPlayer.fields"
+            v-show="addPlayer.show"
+            class="add-player-form"
+          >
+            <h3>
+              Create a new Player for<br />Team ({{ team.getID }})
+              '{{ team.getName }}'
+            </h3>
+            {% verbatim %}
+              <form id="add-player" @submit.prevent="">
+                <div
+                	v-for="field in addPlayer.fields"
+                	v-effect="$el.id = 'add-player-' + field.name"
+                >
+                  <label>{{ field.label }}:</label>
+                  <input
+                  	type="text"
+                  	v-effect="$el.name = field.name"
+                  	v-model="field.value"
+                  />
+                </div>
+                <div class="button-position">
+                  <button class="submit-button" @click="submitPlayer">
+                    Create Player
+                  </button>
+                </div>
+              </form>
+              <div class="message">{{ addPlayer.message }}</div>
+            {% endverbatim %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+{% block bodyscripts %}
+  {{ parent() }}
+  <!-- import the webpage's javascript file -->
+  <script type="module" src="/js/teams_admin.js" defer></script>
+{% endblock %}

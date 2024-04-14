@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/project-avatar/17c4c515-bc16-41f1-b6c2-fd5766287517.png?1660049947368"
+    />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+      <!-- import the webpage's stylesheet -->
+      <link rel="stylesheet" href="/css/style.css" />
+    {% endblock %}
+
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+    {% block bodyscripts %}
+      <!-- load Vue.JS Library -->
+      <script src="/js/vue/petite-vue.es.js" defer init></script>
+      <!-- load Menu App -->
+      <script type="module" src="/js/menu.js" defer></script>
+    {% endblock %}
+  </body>
+</html>
