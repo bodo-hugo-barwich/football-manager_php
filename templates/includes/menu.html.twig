@@ -1,0 +1,24 @@
+{% block menu %}
+  <!-- Navigation Menu -->
+  <div
+    id="menu-app"
+    class="menu"
+    v-scope="{ show: false }"
+    @mounted="mounted(show)"
+  >
+    <div class="button">
+      <button @click="toggleMenu">Menu</button>
+    </div>
+    <div class="content" v-show="menu.show">
+      <div class="item">
+        <a href="{{ path('index') }}">Home</a>
+      </div>
+      <div class="item">
+        <a href="{{ path('teams_index') }}">Teams</a>
+      </div>
+      <div class="item">
+        <a href="{{ path('admin_teams') }}">Teams Admin</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+/* CSS rules for the Player Page */
+
+.teams-select {
+  line-height: 1.5em;
+  min-width: 9em;
+  background: #9480ff;
+  border: 2px solid #31184d;
+  border-radius: 5px;
+  margin: 0.5em 0 2em 0;
+  padding: 0.5em;
+}
+
+.purchase-player-form {
+  width: 30em;
+  height: 15em;
+}
+
+.purchase-player-form label {
+  float: left;
+  min-width: 8.7em;
+}
+
+.purchase-player-form input {
+  float: right;
+  margin: 0 5em 0.2em 0;
+}
+
+.purchase-player-form .button-position {
+  float: right;
+  width: 100%;
+  height: 2em;
+  margin: 0.5em 0 1em 0;
+}
+
+.purchase-player-form .submit-button {
+  float: right;
+  margin-right: 4.5em;
+}
+
+.purchase-player-form .message {
+  float: left;
+  width: 100%;
+}

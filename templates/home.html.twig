@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Teams List - Display Teams{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/teams.css" />
+{% endblock %}
+{% block body %}
+  <!-- this is the start of content -->
+  <h1>Football-Manager</h1>
+  <div>
+    {% include 'includes/menu.html.twig' %}
+
+    <p>
+      This is a web development exercise that simulates a football manager game.
+    </p>
+    <p>
+      The user can create teams and players for each team. And then interchange
+      them between the teams through the purchase form on the player purchase
+      page.
+    </p>
+    <h2>Teams List</h2>
+    <p>A list of Teams and their Players</p>
+    <p>Below each Team the Players from the selected Team are displayed</p>
+    <p>
+      please, click the
+      <span class="code">teams index</span> link to go to the teams list page.
+    </p>
+    <p>Teams List: <a href="{{ path('teams_index') }}">teams index</a></p>
+    <h2>Teams Admin</h2>
+    <p>A list of Teams</p>
+    <p>
+      At the top the user can create a new team through the
+      <span class="code">add team</span> form
+    </p>
+    <p>
+      At the left of each team the user can add a new player to the team through
+      the <span class="code">add player</span> form
+    </p>
+    <p>
+      please, click the
+      <span class="code">teams admin</span> link to go to the teams admin page.
+    </p>
+    <p>Teams Admin: <a href="{{ path('admin_teams') }}">teams admin</a></p>
+    <h2>Player Purchase</h2>
+    <p>
+      A player can be purchased by another team on the Teams List page through
+      the <span class="code">purchase</span> link
+    </p>
+    <p>
+      First the player list for each team needs to be loaded with the
+      <span class="code">show players</span> link below each team
+    </p>
+    <p>
+      A list of players will become visible and on the right side of each
+      player a <span class="code">purchase</span> link (design: button) will be displayed
+    </p>
+    <ul>
+      <li><a href="{{ path('teams_index') }}">teams index</a></li>
+      <li><a href="{{ path('admin_teams') }}">teams admin</a></li>
+    </ul>
+  </div>
+{% endblock %}

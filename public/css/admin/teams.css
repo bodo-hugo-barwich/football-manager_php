@@ -1,0 +1,75 @@
+/* CSS rules for the Admin Teams Page */
+
+.open-form-button {
+  height: 2em;
+  margin-bottom: 1em;
+}
+
+.open-form-button button {
+  float: left;
+  left: 0em;
+}
+
+.add-team-form {
+  width: 30em;
+  height: 15em;
+}
+
+.add-team-form label {
+  float: left;
+  min-width: 8.7em;
+}
+
+.add-team-form input {
+  float: right;
+  margin: 0 8em 0.2em 0;
+}
+
+.add-team-form .button-position {
+  float: right;
+  width: 100%;
+  height: 2em;
+  margin: 0.5em 0 1em 0;
+}
+
+.add-team-form .submit-button {
+  float: right;
+  margin-right: 5.5em;
+}
+
+.add-team-form .message {
+  float: left;
+  width: 100%;
+}
+
+.add-player-form {
+  width: 30em;
+  height: 15em;
+}
+
+.add-player-form label {
+  float: left;
+  min-width: 8.7em;
+}
+
+.add-player-form input {
+  float: right;
+  margin: 0 8em 0.2em 0;
+}
+
+.add-player-form .button-position {
+  float: right;
+  width: 100%;
+  height: 2em;
+  margin: 0.5em 0 1em 0;
+}
+
+.add-player-form .submit-button {
+  float: right;
+  margin-right: 5.5em;
+}
+
+.add-player-form .message {
+  float: left;
+  width: 100%;
+}

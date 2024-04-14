@@ -1,0 +1,31 @@
+/* CSS rules for the Teams Page */
+
+.player-list {
+  max-width: 40em;
+  background: #9480ff;
+  border: 2px solid #31184d;
+  border-radius: 5px;
+  margin-top: 0.5em;
+  padding: 0.5em;
+}
+
+.player-list .button-position {
+  float: right;
+  position: relative;
+  right: 2em;
+  bottom: 2.6em;
+  width: 8em;
+}
+
+a.button {
+  background: linear-gradient(90deg, #ff501e 0%, #ffa528 100%);
+  border: 2px solid #31184d;
+  padding: 0.5em 0.7em;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+a.button:hover {
+  border-color: #8b2306;
+}

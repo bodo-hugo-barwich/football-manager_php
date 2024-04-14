@@ -1,0 +1,148 @@
+/* a minimalist set of CSS resets */
+
+@font-face {
+  font-family: "SportsNight";
+  src: url("/css/sf-sports-night.ttf");
+}
+
+@font-face {
+  font-family: "RedSeven";
+  src: url("/css/red-seven.otf");
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/css/raleway_regular.ttf");
+}
+
+@font-face {
+  font-family: "LiberationSans";
+  src: url("/css/liberation-sans_badn.ttf");
+}
+
+@font-face {
+  font-family: "DejaVu";
+  src: url("/css/dejavu-sans_book.ttf");
+}
+
+/* default to border-box */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* adjust typography defaults */
+body {
+  background: fixed linear-gradient(0deg, #9480ff, #31184d);
+  margin: 1rem;
+  font-family: DejaVu, LiberationSans, sans-serif;
+  color: white;
+  line-height: 1.5;
+}
+
+/* images and videos max out at full width */
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+h1 {
+  font-family: RedSeven, sans-serif;
+  font-size: 1.3em;
+  color: #ffa528;
+}
+
+h2,
+h3,
+h4 {
+  font-family: LiberationSans, Raleway, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+button {
+  background: linear-gradient(90deg, #ff501e 0%, #ffa528 100%);
+  border-color: #31184d;
+  padding: 0.5em 0.7em;
+  border-radius: 5px;
+  font-family: LiberationSans, Raleway, sans-serif;
+  font-weight: 500;
+  font-size: 0.9em;
+  letter-spacing: 0.08em;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #31184d;
+}
+
+a {
+  text-decoration: none;
+  color: #ff501e;
+}
+
+a:hover {
+  color: #ffa528;
+}
+
+ul {
+  padding-left: 0.7em;
+  margin-bottom: 3.5em;
+}
+
+li {
+  float: left;
+  margin-left: 2em;
+}
+
+.menu {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  opacity: 0.8;
+  background: #9480ff;
+  border: 1px solid #31184d;
+  border-radius: 5px;
+}
+
+.menu button {
+  float: right;
+  right: 0em;
+}
+
+.menu .button {
+  height: 2em;
+}
+
+.menu .content {
+  width: 8em;
+  margin: 0.5em 0.7em;
+}
+
+.menu .content .item {
+  height: 1.5em;
+}
+
+.menu .content a {
+  color: white;
+}
+
+.menu .content a:hover {
+  color: #ffa528;
+}
+
+.code {
+  font-family: monospace;
+  background: #6b4bc4;
+  border-radius: 3px;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
