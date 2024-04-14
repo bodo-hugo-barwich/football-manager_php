@@ -3,9 +3,6 @@
 .settings
 .buildpath
 
-# Exclude downloaded scripts
-bin/phpunit
-
 # Exclude Local Configurations
 .prettierignore
 .prettierrc

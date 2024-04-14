@@ -11,7 +11,7 @@ _Petite-Vue_ `JavaScript`  AJAX calls.
 
 # REQUIREMENTS
 
-To rebuild this web site the **Minimum Requirements** are to have _PHP_ and `composer` installed.
+To rebuild this web site the **Minimum Requirements** are to have _PHP_, `composer` and `symfony-cli` installed.
 
 The site uses the libraries `Symfony`, `Twig` and `Twig Templates`.
 
@@ -23,3 +23,22 @@ The site uses the libraries `Symfony`, `Twig` and `Twig Templates`.
     To run the installation call the `composer` Command within the project directory:
 
             composer install
+
+- database
+
+	The test database can be set up with the `bin/console` script.
+	To create and populate the test database with test data run the `bin/console` script in the project directory:
+
+			APP_ENV=test php bin/console doctrine:database:create
+
+			APP_ENV=test php bin/console doctrine:schema:create
+
+			APP_ENV=test php bin/console doctrine:fixtures:load
+
+- test web site
+
+	The test web site can than be started with the `symfony` command line script.
+	To start the development web service and visualise the test web site run the `symfony` command line script in
+	the project directory:
+
+			APP_ENV=test symfony server:start
