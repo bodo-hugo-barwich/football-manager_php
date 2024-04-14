@@ -79,38 +79,25 @@ class TeamsControllerTest extends PantherTestCase
 
         $client->waitForVisibility($addTeamNode);
 
-        echo "page 1 html:\n".print_r($client->getCrawler()->html(), true)."\n";
-
-        echo "add tm 1 frm: '".$crawler->filter($addTeamForm)->getText()."'\n";
-        echo "add tm 1 msg: '".$crawler->filter($addTeamMessageNode)->getText()."'\n";
-
         $crawler->filter($addTeamForm)->form([
             'name' => 'Added Panther Test Team',
             'country_code' => 'tt',
             'money_balance' => 6000000,
         ]);
 
-        echo "add tm 1 btn sel:'$addTeamButton'\n";
-
         $this->assertSelectorExists($addTeamButton, "Form Button 'Create Team' exists");
 
         $crawler->filter($addTeamButton)->click();
-
-        echo "add tm 2 msg: '".$crawler->filter($addTeamMessageNode)->getText()."'\n";
 
         $client->waitForElementToContain($addTeamMessageNode, $createdTeamMessage);
 
         $resultMessage = $crawler->filter($addTeamMessageNode)->getText();
 
-        echo "add tm 3 msg: '$resultMessage'\n";
-
-        echo "bwsr logs:\n".print_r($client->getWebDriver()->manage()->getLog('browser'), true)."\n";
+        // echo "bwsr logs:\n".print_r($client->getWebDriver()->manage()->getLog('browser'), true)."\n";
 
         $createdTeamMatch = null;
 
         preg_match('/Team - Create: Team \(([0-9]+)\)/', $resultMessage, $createdTeamMatch);
-
-        echo 'crt tm mtch: '.print_r($createdTeamMatch, true)."\n";
 
         $teamRepo = static::getContainer()->get(TeamRepository::class);
 
@@ -159,37 +146,24 @@ class TeamsControllerTest extends PantherTestCase
 
         $client->waitForVisibility($addPlayerNode);
 
-        echo "page 1 html:\n".print_r($client->getCrawler()->html(), true)."\n";
-
-        echo "add plyr 1 frm: '".$crawler->filter($addPlayerForm)->getText()."'\n";
-        echo "add plyr 1 msg: '".$crawler->filter($addPlayerMessageNode)->getText()."'\n";
-
         $crawler->filter($addPlayerForm)->form([
             'name' => 'Player Panther',
             'surname' => 'Added Player',
         ]);
 
-        echo "add plyr 1 btn sel:'$addPlayerButton'\n";
-
         $this->assertSelectorExists($addPlayerButton, "Form Button 'Create Player' exists");
 
         $crawler->filter($addPlayerButton)->click();
-
-        echo "add plyr 2 msg: '".$crawler->filter($addPlayerMessageNode)->getText()."'\n";
 
         $client->waitForElementToContain($addPlayerMessageNode, $createdPlayerMessage);
 
         $resultMessage = $crawler->filter($addPlayerMessageNode)->getText();
 
-        echo "add plyr 3 msg: '$resultMessage'\n";
-
-        echo "bwsr logs:\n".print_r($client->getWebDriver()->manage()->getLog('browser'), true)."\n";
+        // echo "bwsr logs:\n".print_r($client->getWebDriver()->manage()->getLog('browser'), true)."\n";
 
         $createdPlayerMatch = null;
 
         preg_match('/Player - Create: Player \(([0-9]+)\)/', $resultMessage, $createdPlayerMatch);
-
-        echo 'crt tm mtch: '.print_r($createdPlayerMatch, true)."\n";
 
         $teamRepo = static::getContainer()->get(TeamRepository::class);
         $playerRepo = static::getContainer()->get(PlayerRepository::class);
