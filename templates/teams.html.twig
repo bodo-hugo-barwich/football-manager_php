@@ -2,9 +2,9 @@
 
 {% block title %}
   Teams List - Display Teams
-  {%- if current_page is defined and current_page > 1 -%}
+  {% if current_page is defined and current_page > 1 -%}
     - Page {{ current_page }}
-  {%- endif -%}
+  {%- endif %}
 {% endblock %}
 {% block stylesheets %}
   {{ parent() }}
@@ -18,7 +18,7 @@
 
     <h2>
       Teams List
-      {%- if current_page is defined and current_page > 1 -%}
+      {% if current_page is defined and current_page > 1 -%}
         - Page {{ current_page }}
       {% endif %}
     </h2>
