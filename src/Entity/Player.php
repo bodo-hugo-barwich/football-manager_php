@@ -110,6 +110,14 @@ class Player
         return $this;
     }
 
+    /**
+     * Assign a Player to a Team by a Team object
+     *
+     * If the Team object is not set the association will be resolved.
+     *
+     * @param Team $team
+     * @return self
+     */
     public function setTeam(?Team $team): self
     {
         if (isset($team)) {
