@@ -7,6 +7,9 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Team;
 use App\Entity\Player;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class AppFixtures extends Fixture
 {
     /**

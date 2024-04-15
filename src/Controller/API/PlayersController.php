@@ -12,6 +12,9 @@ use App\Repository\TeamRepository;
 use App\Repository\PlayerRepository;
 use App\Entity\Player;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class PlayersController extends AbstractController
 {
     /**

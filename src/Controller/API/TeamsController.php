@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use App\Repository\TeamRepository;
 use App\Entity\Team;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class TeamsController extends AbstractController
 {
     /**

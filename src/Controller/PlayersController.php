@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use App\Entity\Team;
 use App\Entity\Player;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class PlayersController extends AbstractController
 {
     /**

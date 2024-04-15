@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -7,6 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Team;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class TeamsController extends AbstractController
 {
     /**

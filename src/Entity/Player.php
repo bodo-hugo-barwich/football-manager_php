@@ -37,6 +37,7 @@ class Player
     /**
      * Imports the Player Data as associative array.
      *
+     * @psalm-suppress PossiblyUnusedMethod
      * @param array &$data Reference to an array containing the data for the Player entity
      */
     public function setData(array &$data): self
@@ -95,6 +96,13 @@ class Player
         return $this->team_id;
     }
 
+    /**
+     * Assign the Player to a Team by ID
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     * @param int $team_id
+     * @return self
+     */
     public function setTeamId(int $team_id): self
     {
         $this->team_id = $team_id;
@@ -116,6 +124,7 @@ class Player
     /**
      * Exports the Player Data to an associative array.
      *
+     * @psalm-suppress PossiblyUnusedMethod
      * @return array Array containing the data for the Player entity
      */
     public function toArray(): array

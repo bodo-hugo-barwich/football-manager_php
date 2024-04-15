@@ -16,11 +16,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TeamRepository extends ServiceEntityRepository
 {
+    /**
+     * Create a new TeamRepository instance.
+     *
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Team::class);
     }
 
+    /**
+     * Commit the new Team to the database.
+     *
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function add(Team $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,11 +40,20 @@ class TeamRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Commit changes on Team instances to the database.
+     */
     public function write(): void
     {
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * Delete a Team entry from the database.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function remove(Team $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -44,6 +63,30 @@ class TeamRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Look up a Player by its 'name' field.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
+     */
+    public function findOneByName(string $name): ?Team
+    {
+        if ('' === $name) {
+            return null;
+        }
+
+        return $this->createQueryBuilder('t')
+        ->andWhere('t.name = :val')
+        ->setParameter('val', $name)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+    /**
+     * Get the total count of Team entries in the database.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function getTotalCount(): int
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -57,42 +100,4 @@ class TeamRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $result[0]['teams_count'];
     }
-
-    public function findOneByName(string $name): ?Team
-    {
-        if ('' === $name) {
-            return null;
-        }
-
-        return $this->createQueryBuilder('t')
-                   ->andWhere('t.name = :val')
-                   ->setParameter('val', $name)
-                   ->getQuery()
-                   ->getOneOrNullResult();
-    }
-
-    //    /**
-    //     * @return Team[] Returns an array of Team objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Team
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

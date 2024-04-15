@@ -17,11 +17,24 @@ use App\Entity\Team;
  */
 class PlayerRepository extends ServiceEntityRepository
 {
+    /**
+     * Create a new PlayerRepository instance
+     *
+     * @param ManagerRegistry $registry
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Player::class);
     }
 
+    /**
+     * Commit the new Player to the database
+     *
+     * @param Player $entity
+     * @param bool $flush
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function add(Player $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -31,11 +44,22 @@ class PlayerRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Commit changes on Player instances to the database
+     */
     public function write(): void
     {
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * Delete a Player entry from the database
+     *
+     * @param Player $entity
+     * @param bool $flush
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function remove(Player $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -46,7 +70,11 @@ class PlayerRepository extends ServiceEntityRepository
     }
 
     /**
+     * Look up Players with a Team instance
+     *
      * @return Player[] Returns an array of Player objects
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
      */
     public function findByTeam(Team $entity): array
     {
@@ -60,6 +88,14 @@ class PlayerRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Look up a Player by its 'name' field
+     *
+     * @param string $name
+     * @return Player|NULL
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function findOneByName(string $name): ?Player
     {
         if ('' === $name) {
@@ -73,6 +109,14 @@ class PlayerRepository extends ServiceEntityRepository
         ->getOneOrNullResult();
     }
 
+    /**
+     * Look up a Player by its 'surname' field
+     *
+     * @param string $surname
+     * @return Player|NULL
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyUnusedParam
+     */
     public function findOneBySurname(string $surname): ?Player
     {
         if ('' === $surname) {
@@ -86,6 +130,12 @@ class PlayerRepository extends ServiceEntityRepository
         ->getOneOrNullResult();
     }
 
+    /**
+     * Get the total count of Player entries in the database
+     *
+     * @return int
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function getTotalCount(): int
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -97,14 +147,4 @@ class PlayerRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative()[0];
     }
-
-    //    public function findOneBySomeField($value): ?Player
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

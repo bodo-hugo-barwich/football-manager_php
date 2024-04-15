@@ -35,7 +35,7 @@ class Team
     private $money_balance;
 
     /**
-     * @var ?Player[]
+     * @var Player[]
      */
     private $players;
 
@@ -45,7 +45,10 @@ class Team
     }
 
     /**
+     * Populate a Team instance by an associative array
+     *
      * @param array &$data Reference to an array containing the data for the Player entity
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function setData(array &$data): self
     {
@@ -82,6 +85,12 @@ class Team
         return $this;
     }
 
+    /**
+     * Returns the country code of the Team
+     *
+     * @return string|NULL Country code of the Team
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function getCountry(): ?string
     {
         return $this->country;
@@ -110,6 +119,8 @@ class Team
      * Exports the Team Data to an associative array.
      *
      * @return array Array containing the data for the Team entity
+     * @psalm-suppress PossiblyUnusedMethod
+     * @psalm-suppress PossiblyNullArgument
      */
     public function toArray(): array
     {
@@ -122,13 +133,25 @@ class Team
     }
 
     /**
-     * @return ?array
+     * Returns an associative array of Player objects
+     *
+     * This can be empty if the Player entries are not looked up yet.
+     *
+     * @return array Associative array of Player objects
+     * @psalm-suppress PossiblyUnusedMethod
      */
-    public function getPlayers(): ?array
+    public function getPlayers(): array
     {
         return $this->players;
     }
 
+    /**
+     * Add a Player object to the Teams Player list
+     *
+     * @param Player $player
+     * @return self
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function addPlayer(Player $player): self
     {
         $playerId = $player->getId();
@@ -137,18 +160,36 @@ class Team
             $playerId = -1;
         }
 
-        if (!in_array($playerId, $this->players)) {
-            $this->players[$player->getId()] = $player;
-            $player->setTeam($this);
+        if ($playerId > 0) {
+            if (!in_array($playerId, $this->players)) {
+                $this->players[$playerId] = $player;
+                $player->setTeam($this);
+            }
         }
 
         return $this;
     }
 
-    /*
+    /**
+     * Remove a Player object from the Teams Players List.
+     *
+     * This does not delete the Player object itself
+     *
+     * @param Player $player
+     * @return self
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function removePlayer(Player $player): self
     {
-        if ($this->players->removeElement($player)) {
+        $playerId = $player->getId();
+
+        if (!isset($playerId)) {
+            $playerId = -1;
+        }
+
+        if ($playerId > 0) {
+            unset($this->players[$playerId]);
+
             if ($player->getTeamId() == $this->id) {
                 $player->setTeam(null);
             }
@@ -156,5 +197,4 @@ class Team
 
         return $this;
     }
-    */
 }
