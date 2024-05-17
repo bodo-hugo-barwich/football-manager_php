@@ -46,9 +46,16 @@ The site uses the libraries `Symfony`, `Twig` and `Twig Templates`.
 - tests
 
 	The automatted tests can be run with the `bin/phpunit` script.
+
+
 	To execute the automatted tests run the `bin/phpunit` script in the project directory:
 
 			php bin/phpunit
 
 	It is recommended to restore the test database before each test run with the `doctrine:fixtures:load` command as
 	described under _database_ above.
+
+# CREDITS
+
+	The title used the _Red Seven_ font by Dennis Ludlow
+
